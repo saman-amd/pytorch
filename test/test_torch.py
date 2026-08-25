@@ -179,7 +179,8 @@ class TestTorchDeviceType(TestCase):
 
     # For testing in64 support in upsample_nearest3d
     @onlyCUDA
-    @largeTensorTest('56GB', device='cuda')
+    # 7.03 GiB input + 56.25 GiB output, both live across the upsample call.
+    @largeTensorTest('64GB', device='cuda')
     @dtypes(torch.bfloat16)
     @unittest.skipIf(IS_JETSON, "Large tensor tests are too large for Jetson.")
     def test_int64_upsample3d(self, device, dtype):
